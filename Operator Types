@@ -1,0 +1,89 @@
+import math
+#  算术运算符
+#  +运算符除了用于算术加法以外，还可用于列表、元组、字符串的连接
+print(3+5)
+print(3.4+4.5)
+print((3+4j)+(5+6j))
+print('abc'+'def')
+print([1, 2]+[3, 4])
+print((1, 2)+(3, ))
+print("\n")
+
+#  -运算符除了用于整数、实数、复数之间的算数减法和相反数之外，还可以计算集合的差集
+print(7.9-4.5)  # 注意，结果有误差
+print(5-3)
+num = 3
+print(-num)
+print(--num)  # 注意，这里的--是两个负号，负负得正
+print(-(-num))  # 与上一行代码含义相同
+print({1, 2, 3}-{3, 4, 5})  # 计算差集
+print({3, 4, 5}-{1, 2, 3})
+print("\n")
+
+#  比较运算符
+print(3+2 < 7+8)                        # 关系运算符优先级低于算术运算符
+print(3 < 5 > 2)                        # 等价于3 < 5 and 5 > 2
+print(3 == 3 < 5)                       # 等价于3 == 3 and 3 < 5
+print('12345' > '23456')                # 第一个字符1<2，直接得出结论
+print('abcd' > 'Abcd')                  # 第一个字符'a'>'A'，直接得出结论
+print([85, 92, 73, 84] < [91, 82, 73])  # 第一个数字85<91，直接得出结论
+print([180, 90, 101] > [180, 90, 99])   # 前两个数字相等，第三个数字101>99
+print({1, 2, 3, 4} > {3, 4, 5})         # 第一个集合不是第二个集合的超集
+print({1, 2, 3, 4} <= {3, 4, 5})        # 第一个集合不是第二个集合的子集
+print([1, 2, 3, 4] > [1, 2, 3])         # 前三个元素相等，并且第一个列表有多余的元素
+print("\n")
+
+#  逻辑运算符
+# range(5)等价于range(0, 5, 1)(起始，元素个数，步长)
+print(3 in range(5) and 'abc' in 'abcdefg')
+print(3-3 or 5-2)
+print(not 5)
+print(not [])
+print("\n")
+
+#  成员运算符示例
+print(60 in [70, 60, 50, 80])       # 60在这个列表里
+print('abc' in 'alb2c3dfg')         # 必须是连着的abc
+print([3] in [[3], [4], [5]])       # [3]这个列表在[[3], [4], [5]]这个列表嵌套里
+# map()作用是将range(5)的列表对象进行映射，即用str将该列表中元素转化为字符串，
+# 生成['0', '1', '2', '3', '4']列表
+print('3' in map(str, range(5)))
+print(5 in range(5))
+print("\n")
+
+#  身份运算符示例
+a = 20
+b = 20
+if(a is b):
+    print("1:a和b有相同的标识")
+else:
+    print("1:a和b没有相同的标识")
+#  对比a和b的地址
+print("这是a的地址：")
+print(id(a))
+print("这是b的地址：")
+print(id(b))
+#  修改变量b的值
+b = 30
+if(a is b):
+    print("3:a和b有相同的标识")
+else:
+    print("3:a和b没有相同的标识")
+#  对比a和b的地址
+print("这是a的地址：")
+print(id(a))
+print("这是b的地址：")
+print(id(b))
+#  is与==的区别
+a = [1, 2, 3]
+b = [1, 2, 3]
+print(b == a)
+print(b is a)
+#  对比a和b的地址
+print("这是a的地址：")
+print(id(a))
+print("这是b的地址：")
+print(id(b))
+
+# print(math.isclose(2.5-2, 0.5))  # isclose(object,classinfo)函数的作用是，判断两个参数是否接近或相等
+# print(isinstance(3.14, int))     # isinstance(object,classinfo)函数的作用是：如果object类型与classinfo类型相同，返回true
