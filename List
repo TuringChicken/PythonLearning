@@ -1,0 +1,112 @@
+a = [0, 1, 2, 3]
+print(a[0:2])       # a[0:2]是左闭右开的一个子序列
+for x in a:         # 对列表进行循环列举
+    print(x in a)   # 判断x是否在a列表中
+print('\n')
+
+#  列表的相关方法
+#  <list>.append(x)    将元素x增加到列表的最后
+#  <list>.sort()       将列表元素排序
+#  <list>.reverse()    将序列元素反转
+#  <list>.index(x)      返回第一次出现元素x的索引值
+#  <list>.insert(i,x)  在位置i处插入新元素x
+#  <list>.count(x)     返回元素x在列表中的数量
+#  <list>.remove(x)    删除列表中第一次出现的元素x
+#  <list>.pop(i)       取出列表中位置i的元素，并删除它
+
+#  创建列表
+tuple1 = (3, 5, 7, 9, 11)
+list1 = list(tuple1)  # 将元素转换为列表
+print(list1)
+range1 = range(1, 10, 2)  # range(start,end,step) 开始，结束，步长
+list2 = list(range1)  # 将range对象转换为列表
+print(list2)
+str1 = 'hello world'
+list3 = list(str1)    # 将字符串转换为列表，每个字符转换为列中的一个元素
+print(list3)
+set1 = {3, 7, 5}
+list4 = list(set1)    # 将集合转换为列表，集合中的元素是无序的
+print(list4)
+list5 = list()        # 创建空列表
+print(list5)
+# x = [1, 2, 3]
+# del x                 # 删除列表对象
+# print(x)              # 对象删除后无法再访问，抛出异常
+print('\n')
+
+#  利用索引访问列表
+data = list(range(10))
+print(data)
+print(data[0])        # 第一个元素的下标为0
+print(data[1])        # 第二个元素的下标为1
+print(data[-1])       # -1表示最后一个元素的下标
+#  print(data[15])       # 15不是有效下标，代码抛出异常
+print('\n')
+
+#  列表常用方法 append()、insert()、extend()
+lst = [1, 2, 3, 4]
+print(lst)
+lst.append(5)           # 在列表末尾增加一个5
+print(lst)
+lst.insert(0, 0)        # 将0插入咧白哦下标为0的位置
+print(lst)
+lst.insert(2, 1.5)      # 将1.5插入列表下标为2的位置
+print(lst)
+lst.extend([6, 7])      # 将第二个列表的元素追加到第一个列表末尾
+print(lst)
+print('\n')
+
+#  列表常用方法 pop()、remove()
+lst2 = [1, 2, 3, 4, 5, 6]
+print(lst2.pop())       # 删除并返回最后一个元素
+print(lst2)
+print(lst2.pop(0))      # 删除并返回下标为0的元素，后面的元素向前移动
+print(lst2)
+print(lst2.pop(2))      # 删除并返回下标为2的元素，后面的元素向前移动
+print(lst2)
+lst = [1, 2, 3, 2, 4, 2]
+lst.remove(2)           # 删除第一个2，该方法没有返回值
+print(lst)
+print('\n')
+
+#  列表常用方法 sort()、reverse()
+from random import sample
+#  在range(10000)中任选10个不重复的随机数
+data = sample(range(10000), 10)
+print(data)
+data.reverse()           # 翻转， 首尾交换，该方法没有返回值
+print(data)
+data.sort(reverse=True)  # 按元素从大到小排序
+print(data)
+data.sort()              # 按元素从小到大排序，该方法没有返回值
+print(data)
+data.sort(key=str)       # 按所有元素转换为字符串后的大小进行排序
+print(data)
+print('\n')
+
+#  列表常用方法 count()、index()
+lst = [1, 2, 2, 3, 3, 3, 4, 4, 4, 4]
+print(lst.count(2))     # 输出2
+print(lst)
+print(lst.index(4))     # 输出6
+print(lst)
+# print(lst.index(5))     # 代码抛出异常，提示5 is not in list
+print('\n')
+
+#  列表推导式
+data = [2**i for i in range(64)]
+print(data)
+#  等价于
+data = []
+for i in range(64):
+    data.append(2**i)
+print(data)
+data = [num for num in range(20) if num % 2 == 1]
+print(data)
+#  等价于
+data = []
+for num in range(20):
+    if num % 2 == 1:
+        data.append(num)
+print(data)
+print('\n')
