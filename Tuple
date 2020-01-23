@@ -1,0 +1,20 @@
+#  生成器表达式
+gen = (2**i for i in range(8))  # 创建生成器对象
+print(gen)
+print(list(gen))                # 转换为列表，用完了生成器对象中的所有元素
+print(tuple(gen))               # 转换为元组，得到空元组
+gen = (2**i for i in range(8))  # 重新创建生成器对象
+print(next(gen))                # 使用next()函数访问下一个元素
+print(next(gen))
+for item in gen:                # 使用for循环访问剩余的所有元素
+    print(item, end=' ')
+print('\n')
+
+#  切片操作
+data = list(range(20))
+print(data[:])                  # 获取所有元素的副本
+print(data[:3])                 # 前三个元素
+print(data[3:])                 # 下标3之后的所有元素
+print(data[::3])                # 每3个元素选取1个
+print(data[-3:])                # 最后3个元素
+print(data[:-5])                # 除最后5个元素之外的所有元素
