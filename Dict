@@ -1,0 +1,48 @@
+#  创建字典，基础语法方式
+#  字典中值可以取任何数据类型，但键必须是不可变的，如字符串，数字或元组
+dict0 = {'Alice': 2341, 'Beth': '9102', 'Cecil': 3258}
+dict1 = {'abc': 456}
+dict2 = {'abc': 123, 98.6: 37}
+print(dict0)
+print(dict1)
+print(dict2)
+#  创建字典：dict函数
+#  使用dict函数可通过其他映射（字典）或者（键，值）序列对创建字典
+items = [('name', 'Gumby'), ('age', 42)]
+d = dict(items)
+print(d)
+#  也可通过关键字参数来创建字典
+d = dict(name='Gumby',age=42)
+print(d)
+print('\n')
+
+
+#  字典元素访问
+data = dict(name='张三', age=18, sex='M')
+print(data['name'])                             # 使用“键”作为下标，访问“值”
+print(data.get('age'))
+print(data.get('address', '不存在这个键'))      # “键”不存在，返回默认值
+print(list(data))                               # 把所有的“键”转换为列表
+print(list(data.values()))                      # 把所有的“值”转换为列表
+print(list(data.items()))                       # 把所有的元素转换为列表
+for key, value in data.items():                 # 遍历字典的“键：值”元素
+    print(key, value, sep='\t')
+print('\n')
+
+
+#  字典元素修改、添加与删除
+sock = {'IP': '127.0.0.1', 'port': 80}
+sock['port'] = 8080                             # 修改已有元素的值
+sock['protocol'] = 'TCP'                        # 增加新元素
+print(sock)
+#  updata()方法
+#  该方法可将另一个字典的元素全部一次性添加到当前字典对象，若存在相同的键，则用另一个字典中的值为准对当前字典进行更新
+sock1 = {'IP': '127.0.0.1', 'port': 80}
+sock1.update({'IP': '192.168.9.62', 'protocol': 'TCP'})
+print(sock1)
+#  pop()方法、popitem()方法、del指令
+sock2 = {'IP': '132.56.0.4', 'port': 80, 'protocol': 'TCP'}
+print(sock2.pop('IP'))                          # 删除并返回指定“键”的元素
+print(sock2.popitem())                          # 随机删除并返回一个元素
+del sock2['port']                               # 删除指定“键”的元素
+print(sock2)
