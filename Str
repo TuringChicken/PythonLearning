@@ -1,0 +1,59 @@
+#  字符串的相关概述，操作和方法
+#  字符串是一个字符序列，有正、反两种索引，正从0开始，反从-1开始
+#  转义符\用法与C++相同
+#  字符串操作：通过索引实现（例如切片操作），可用+或*进行连接，其中*是重复。相关之前已学习过
+#  常用方法：
+#  index(x)、rindex(x)、count(x)、replace(str1,str2[,max])
+text = '处处飞花飞处处，声声笑语笑声声 '
+print(text.rindex('处'))
+print(text.index('声'))
+print(text.count('处'))
+
+#  replace()方法返回替换后的新字符串，可以直接再次调用replace()方法
+text2 = "Python是一门非常棒的编程语言。"
+print(text2.replace('棒', '优雅').replace('编程', '程序设计'))
+print(text2)                    # 原字符串不变
+
+#  maketrans()：创建字符映射转换表
+#  translate(str)：根据str给出的映射转换表转换string字符
+table = ''.maketrans('0123456789', '零一二三四伍陆柒捌玖')
+print('Tel:62819743'.translate(table))
+
+#  ljust(width[, fillchar])：返回一个原字符串左对齐，并使用fillchar填充至长度width的新字符串，fillchar默认为空格.
+#  rjust()、center()类似。
+print('居左'.ljust(20)+'结束')
+print('居右'.rjust(20, '#'))
+print('居中'.center(20, '='))
+
+#  split(str="",num=string.count(str))，其中num=string.count(str))以str为分隔符截取字符串
+#  若num有指定值，则仅截取num+1个子字符串。rsplit()类似，从右侧开始截取。
+#  join(seq)：以指定字符串为分隔符，将seq中所有的元素(的字符串表示)合并为一个新的字符串。
+text3 = 'Beautiful is better than ugly.'
+print(text3.split())
+print(text3.split(maxsplit=1))
+print(text3.rsplit(maxsplit=2))
+print('1,2,3,4'.split(','))
+print(','.join(['1', '2', '3', '4']))
+print(':'.join(map(str, range(1, 5))))
+print(''.join(map(str, range(1, 5))))
+
+#  字符串大小写转换的几个方法
+#  lower()、upper()、capitalize()、title()、swapcase()
+text4 = 'Simple is better than complex.'
+print(text4.lower())            # 全小写
+print(text4.upper())            # 全大写
+print(text4.capitalize())       # 句首大写
+print(text4.title())            # 每个单词首字母大写
+print(text4.swapcase())         # 交换原大小写
+
+#  startswith()、endswith()检查字符串是否以指定字符串substr开头或结束，是则返回True。
+print(text4.startswith('simple'))
+print(text4.startswith('Simple'))
+print(text4.endswith(('.', '!', '?')))
+
+#  strip()、rstrip()、lstrip()：截取字符串的指定字符。
+text5 = '   ======test===#####   '
+print(text5.strip())            # 删除两侧的空白字符
+print(text5.strip('=# '))       # 删除两侧的=、#和空格
+print(text5.rstrip('=# '))      # 从右边开始删除=、#和空格
+print(text5.lstrip('= '))       # 从左边开始删除=和空格
