@@ -1,0 +1,60 @@
+# 文件操作
+# 打开文件
+# open()函数格式
+# <变量名>=open(<文件名>,<打开模式>)
+# 上下文管理语句with
+# with open(filename, mode, encoding)as fp:
+# 这里写通过文件对象fp读写文件内容的语句块
+with open('teleAddressBook.txt', 'rt', encoding='utf-8') as ftele1:
+    with open('emailAddressBook.txt', 'rt', encoding='utf-8') as ftele2:
+        ftele1.readline()
+        ftele2.readline()
+        lines1 = ftele1.readlines()
+        lines2 = ftele2.readlines()
+        # 建立空表用于存储姓名，电话，email
+        list1_name = []
+        list1_tele = []
+        list2_name = []
+        list2_email = []
+        for line in lines1:     # 获取第一个文本中的姓名和电话信息
+            elements = line.split()
+            # 将每一行作为一个元素，形成两个列表
+            list1_name.append(elements[0])
+            list1_tele.append(elements[1])
+        for line in lines2:     # 获取第二个文本中的姓名和邮件信息
+            elements = line.split()
+            list2_name.append(elements[0])
+            list2_email.append(elements[1])
+
+        # 生成新的数据
+        lines = []
+        lines.append('姓名\t电话\t\t邮箱\n')
+
+        # 遍历列表1
+        for i in range(len(list1_name)):
+            s = ''
+            if list1_name[i] in list2_name:
+                j = list2_name.index(list1_name[i])
+                s = '\t'.join([list1_name[i], list1_tele[i], list2_email[i]])
+                s += '\n'
+            else:
+                s = '\t'.join([list1_name[i], list1_tele[i], str('   ----   ')])
+                s += '\n'
+            lines.append(s)
+
+        for i in range(len(list2_name)):
+            s = ''
+            if list2_name[i] not in list1_name:
+                s = '\t'.join([list2_name[i], str('   ----   '), list2_email[i]])
+                s += '\n'
+                lines.append(s)
+
+        # 写入文件
+        ftele3 = open('addressbook.txt', 'w')
+        ftele3.writelines(lines)
+
+# 关闭文件
+ftele1.close()
+ftele2.close()
+ftele3.close()
+print("新的通讯录已合成")
