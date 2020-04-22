@@ -1,0 +1,52 @@
+#  定义happy函数
+def happy():
+    print("Happy birthday to you!")
+#  定义sing函数
+def sing(name):
+    happy()
+    happy()
+    print("Happy birthday to you, "+name+'!')
+    happy()
+sing('Mike')
+sing('Lily')
+
+#  可选参数和可变量参数
+def dup(str, times = 2):                # 参数times存在默认值2
+    print(str * times)
+dup("knock~")
+dup('knock~',4)
+
+#  函数返回值，return语句
+def square1(x):
+    y=x*x
+    return y
+def square2(x):
+    return x*x
+print(square1(2))
+print(square2(3))
+
+#  lamada函数（匿名函数）
+#  用于定义简单的，能够在一行内表示的函数，返回一个函数类型
+#  例：f=lambda x, y:x+y
+foo = [2, 18, 9, 22, 17, 24, 8, 12, 27]
+print(list(x for x in foo if x % 3 == 0))
+print(list(filter(lambda x : x % 3 == 0, foo)))
+
+#  递归函数
+#  递归示例：字符串反转
+#  方法1:将字符串转化为列表并调用一个翻转函数
+def reverseStr(s):
+    ls = list(s)
+    ls.reverse()
+    s = "".join(ls)                     # 以""作为分隔符，将ls中的所有的元素合并成一个新的字符串
+    print(s)
+str = "salskdjfhuwhe0tiioa"
+reverseStr(str)
+#  方法2：将字符串分割成首字符和剩余子字符串
+def reverseRecu(s):
+    if len(s) <= 0:
+        return ""
+    else:
+        return reverseRecu(s[1:]) + s[0];
+str = "salskdjfhuwhe0tiioa"
+reverseStr(str)
