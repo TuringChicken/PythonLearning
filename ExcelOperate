@@ -1,0 +1,65 @@
+# Excel文件操作实例
+# openpyxl库
+# 用openpyxl库打开Excel文档
+# wb = openpyxl.load_workbook()
+
+# 从工作簿中取得工作表
+# get_sheet_names()
+
+# 默认在最后添加工作表
+# ws1 = wb.create_sheet()
+
+# 在指定位置添加工作表，位置0，即第一个
+# ws2 = wb.create_sheet(0)
+
+# 可以通过工作表名称获取工作表，以下两种方式效果相同
+# ws3 = wb["New Title"]
+# ws4 = wb.get_sheet_by_name("New Title")
+
+# 通过get_sheet_names()获取工作簿所有工作表的名称，返回值为list类型
+# print(wb.get_sheet_names())
+
+# 获取单元格
+# c = ws['A4']          利用坐标获取单元格，若单元格不存在，则被创建
+# ws['A4'] = 4          对单元格的值直接赋值
+# 也可以通过以下两种方式获取单元格，效果相同
+# c = ws.cell('A4')
+# 指定行和列获取，从1开始，不从0开始
+# d = ws.cell(row = 4, column = 1)
+
+# 利用切片方式获取指定区域的单元格
+# cell_range = ws['A1':'C2']
+
+# 获取单元格后，写数据
+# c = ws.cell('A4')
+# c.value = 'hello, world'
+
+# 对实例化的工作簿调用openpyxl.workbook.Workbook.save()进行保存
+# wb.save('sample.xlsx')
+
+import openpyxl
+# noinspection PyUnresolvedReferences
+import pprint
+print('Opening workbook...')
+wb = openpyxl.Workbook
+wb = openpyxl.load_workbook(filename='censuspopdata.xlsx')
+sheet = wb['Sheet1']  # 获取人口统计sheet工作表
+countyData = {}  # 定义统计结果保存字典
+print('Reading rows...')
+for row in range(2, sheet.max_row+1):   # 从excel文件第二行开始读取数据，至最后一行。前闭后开，不包括max_row+1行
+    state = sheet['B'+str(row)].value   # 读取州名
+    county = sheet['C'+str(row)].value  # 读取县名
+    pop = sheet['D'+str(row)].value     # 读取人口数量值
+
+    countyData.setdefault(state, {})
+    countyData[state].setdefault(county, {'tracts': 0, 'pop': 0})
+
+    countyData[state][county]['tracts'] += 1        # 该县的人口普查次数
+    countyData[state][county]['pop'] += int(pop)    # 该县所有普查次区人口数量相加
+
+print('Writing results...')
+resultFile = open('census2010.py', 'w')
+resultFile.write('allData='+pprint.pformat(countyData))
+# pprint生成一个字符串，格式化好的，有效的python代码
+resultFile.close()
+print('Down.')
