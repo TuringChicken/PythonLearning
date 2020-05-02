@@ -1,0 +1,103 @@
+from PIL import Image
+from PIL import ImageFilter
+from PIL import ImageEnhance
+from PIL import Image, ImageDraw, ImageFont, ImageFilter
+import random
+# 将image1处理为128*128的缩略图，保存为image0TN.jpg
+im = Image.open("image1.jpg")
+im.thumbnail((128, 128))
+im.save("img0TN.jpg", "JPEG")
+
+# Pillow扩展库主要操作
+# Image.point(func) 根据函数func功能对每个元素进行运算，返回图像副本
+# Image.split() 提取RGB图像的每个颜色通道，返回图像副本
+# Image.merge(mode, bands) 合并通道，采用mode色彩，bands是新色的色彩通道
+# Image.blend(im1, im2, alpha) 将两幅图片im1和im2按照如下公式插值后生成新的图像
+#                               im1*(1.0-alpha)+im2*alpha
+
+# 颜色变换
+im2 = Image.open('image1.jpg')
+r, g, b = im2.split()
+om = Image.merge("RGB", (b, g, r))
+om.save('img1BGR.jpg')
+
+# 通道颜色变换
+im3 = Image.open('image1.jpg')
+r, g, b = im3.split()                   # 获得RGB通道数据
+newr = g.point(lambda i: i*0.9)
+newg = g.point(lambda i: i < 200)         # 选择g通道值低于200的像素点
+newb = b.point(lambda i: i)
+om2 = Image.merge(im3.mode, (newr, newg, b))    # 将3个通道合成新图像
+om2.save('img1Merge.jpg')
+
+# PIL库的ImageFilter提供的过滤图像方法
+# ImageFilter.BLUR              图像的模糊效果
+# ImageFilter.CONTOUR           图像的轮廓效果
+# ImageFilter.DETAIL            图像的细节效果
+# ImageFilter.EDGE_ENHANCE      图像的边界加强效果
+# ImageFilter.EDGE_ENHANCE_MORE 图像的阈值边界加强效果
+# ImageFilter.EMBOSS            图像的浮雕效果
+# ImageFilter.FIND_EDGES        图像的边界效果
+# ImageFilter.SMOOTH            图像的平滑效果
+# ImageFilter.SMOOTH_MORE       图像的阈值平滑效果
+# ImageFilter.SHARPEN           图像的锐化效果
+
+# Pillow扩展库生成模糊图片
+# 生成图像模糊效果：套用滤镜
+im4 = Image.open('image1.jpg')
+om3 = im4.filter(ImageFilter.BLUR)   # 为图片使用模糊滤镜
+om3.save('img1_blur.jpg')
+
+# PIL库的ImageEnhance类提供了更高级的图像增强需求，提供调整色彩度、亮度、对比度、锐化等功能
+# ImageEnhance.enhance(factor)  对选择属性的数值增强factor倍
+# ImageEnhance.Color(im)        调整图像的颜色平衡
+# ImageEnhance.Contrast(im)     调整图像的对比度
+# ImageEnhance.Brightness(im)   调整图像的亮度
+# ImageEnhance.Sharpness(im)    调整图像的锐度
+
+# 高级图像增强示例
+im5 = Image.open('image1.jpg')
+# 调整图像对比度
+om = ImageEnhance.Contrast(im5)
+# 图像对比度增强3倍
+om.enhance(3).save('img1_EnContrast.jpg')
+
+# 验证码生成实战
+# 思路：使用库PIL、random
+# 画布：随即填充色
+# 字母：指定字体（注意路径）、模糊滤镜BLUR
+# 随机字母(65~90表示26个大写英文字母)
+
+
+def rndchar():
+    return chr(random.randint(65, 90))
+# 随机颜色(验证码背景颜色)：
+
+
+def rndColor():
+    return (random.randint(64, 255), random.randint(54, 255), random.randint(64, 255))
+# 随机颜色2(文字颜色)：
+
+
+def rndColor2():
+    return (random.randint(32, 127), random.randint(32, 127), random.randint(32, 127))
+
+
+# 240*60:
+width = 60*4
+height = 60
+image = Image.new('RGB', (width, height), (255, 255, 255))
+# 创建Font对象:
+font = ImageFont.truetype('C:\Windows\Fonts\Arial.TTF', 36)
+# 创建Draw对象:
+draw = ImageDraw.Draw(image)
+# 填充每个像素:
+for x in range(width):
+    for y in range(height):
+        draw.point((x, y), fill=rndColor())
+# 输出文字:
+for t in range(4):
+    draw.text((60*t+10, 10), rndchar(), font=font, fill=rndColor2())
+# 模糊:
+image = image.filter(ImageFilter.BLUR)
+image.save('code.jpg', 'jpeg')
