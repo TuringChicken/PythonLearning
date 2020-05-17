@@ -1,0 +1,110 @@
+# ndarray创建数组操作
+# 方法格式：numpy.array(object, dtype=None, copy=True, order=None, subok=False, ndmin=0)
+# object:数组或嵌套的序列
+# dtype:数组元素的数据类型，可选
+# copy:对象是否需要复制
+# order:创建数组的样式，C为行方向，F为列方向，A为任意方向（默认）
+# subok:默认返回一个与基类类型一致的数组
+# ndmin:指定生成数组的最小维度
+import numpy as np
+a = [1, 2, 3, 4]    # 创建简单的列表
+b = np.array(a)     # 将列表转换为数组
+print(b)
+print('\t')
+c = np.array([[1, 2], [3, 4]])
+print(c)
+print('\t')
+
+# 除了numpy之外，还有一些函数也可以新建数组
+# zeros和ones分别可以创建指定长度或形状的全0或全1数组
+# empty可以创建一个没有任何具体值的数组
+print(np.zeros(3))          # 全0一维数组
+print('\t')
+print(np.ones(3))           # 全1一维数组
+print('\t')
+print(np.zeros((3, 3)))     # 全0二维数组，3行3列
+print('\t')
+print(np.zeros((3, 1)))     # 全0二维数组，3行1列
+print('\t')
+print(np.zeros((1, 3)))     # 全0二维数组，1行3列
+print('\t')
+print(np.ones((3, 3)))      # 全1二维数组，3行3列
+print('\t')
+print(np.ones((1, 3)))      # 全1二维数组，1行3列
+print('\t')
+print(np.identity(3))       # 单位矩阵，3行3列
+
+# 创建随机数组
+# 均匀分布
+# np.random.rand(10, 10)    创建指定形状(10行10列)的数组，范围在0至1之间
+# np.random.uniform(0, 100) 创建指定范围内的一个数
+# np.random.randint(0, 100) 创建指定范围内的一个整数
+# 正态分布
+# np.random.normal(1.75, 0.1, (2, 3)) 给定均值/标准差/维度的正态分布
+print(np.random.randint(0, 50, 5))          # 随机数组，5个0到50之间的数字
+print('\t')
+print(np.random.randint(0, 50, (3, 5)))     # 3行5列，共15个随机整数，都介于[0,50]
+print('\t')
+print(np.random.rand(10))                   # 10个介于[0,1)的随机数
+print('\t')
+print(np.random.standard_normal(5), '\n')         # 从标准正态分布中随机采样5个数字
+
+# 数组属性
+# b.size        数组元素个数
+# b.shape       数组形状
+# b.ndim        数组维度
+# b.dtype       数组元素类型
+# b.Itemsize    数组元素字节大小
+x = np.array([(1, 2, 3), (4, 5, 6)])
+print(x)
+print("x的size是：", x.size)
+print("x的ndim是：", x.ndim)
+print("x的shape是：", x.shape)
+print("x的itemsize是：", x.itemsize, "字节")
+print("x的dtype是：", x.dtype, '\n')
+
+y = x.reshape(3, 2)
+print(y, '\n')
+print("y的shape是：", y.shape, '\n')
+
+# 数组和标量之间的运算
+arr = np.array([[1., 2., 3.], [4., 5., 6.]])
+print(arr, '\n')
+print(arr-arr, '\n')
+print(arr*arr, '\n')
+print(1/arr, '\n')
+print(arr**0.5, '\n')
+
+# 基本的索引和切片
+arr2 = np.arange(10)
+print(arr2, '\n')
+print(arr2[5], '\n')
+print(arr2[5:8], '\n')          # 范围[5,8)，左闭右开
+print(arr2, '\n')
+arr2_slice = arr2[5:8]
+arr2_slice[1] = 12345
+print(arr2, '\n')
+arr2_slice[:] = 64
+print(arr2, '\n')
+
+arr3d = np.array([[[1, 2, 3], [4, 5, 6]], [[7, 8, 9], [10, 11, 12]]])
+print(arr3d, '\n')
+print("arr3d[0]=", arr3d[0], '\n')
+print(arr3d[0][1], '\n')
+
+# 数学和统计方法
+arr3 = np.random.randn(5, 4)  # 5行4列正态分布的数据
+print(arr3.mean())
+print(np.mean(arr3))
+print(arr3.sum())
+# mean和sum这类的函数可以接受一个axis参数(用于计算该轴向上的统计值)
+print(arr3.mean(axis=1))    # 按行求平均值
+print(arr3.mean(axis=0))    # 按列求平均值
+print(arr3.sum(0))
+# cumsum:按照给定的轴参数返回元素的梯形累计和，axis=0，按行累加。axis=1，按列累加
+# cumprod:按照给定的周参数返回元素的梯形累计乘积，axis=0，按行累积。axis=1，按列累积
+arr4 = np.array([[0, 1, 2], [3, 4, 5], [6, 7, 8]])
+print(arr4.cumsum(0))
+print(arr4.cumsum(1))
+print(arr4.cumprod(0))
+print(arr4.cumprod(1))
