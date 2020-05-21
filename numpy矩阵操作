@@ -1,0 +1,74 @@
+import numpy.matlib
+import numpy as np
+# numpy矩阵生成
+x = np.matrix([[1, 2, 3], [4, 5, 6]])
+y = np.matrix([1, 2, 3, 4, 5, 6])
+# x[0, 0]返回行下标和列下标都为0的元素
+# 注意，对于矩阵x来说，x[0, 0]和x[0][0]的含义不一样
+print(x, y, x[0, 0], x[0][0], sep='\n\n')
+print(np.matlib.empty((2, 2)), '\n')    # 创建一个随机矩阵(2行2列)
+print(np.matlib.zeros((2, 2)), '\n')    # 创建一个以0填充的矩阵
+print(np.matlib.ones((2, 2)), '\n')     # 创建一个以1填充的矩阵
+print(np.matlib.eye(n=3, M=4, k=0, dtype=int), '\n')  # 函数返回一个矩阵，对角线元素为1，其他位置为0
+# n：返回矩阵的行数
+# M：返回矩阵的列数，默认为n
+# k：对角线的索引
+# dtype：数据类型
+# numpy.matlib.identity()  返回给定大小的单位矩阵
+print(np.matlib.identity(4, dtype=int))     # 大小为4，类型为整型
+# numpy.matlib.rand() 创建一个给定大小的矩阵，数据是随机填充的
+print(numpy.matlib.rand(4, 4))
+
+# 矩阵与二维数组相互转换
+i = np.matrix('1,2;3,4')
+print(i)
+j = np.asarray(i)
+print(j)
+k = np.asmatrix(j)
+print(k)
+
+# 矩阵转置
+x = np.matrix([[1, 2, 3], [4, 5, 6]])
+y = np.matrix([1, 2, 3, 4, 5, 6])
+print(x.T, y.T, sep='\n\n')
+
+x = np.matrix([[1, 2, 3], [4, 5, 6], [7, 8, 9]])
+print(x)
+print('所有元素平均值：\n', x.mean(), end='\n====\n')         # 所有元素平均值
+print('纵向平均值：\n', x.mean(axis=0), end='\n====\n')   # 纵向平均值
+print('纵向平均值的维度：\n', x.mean(axis=0).shape, end='\n====\n')
+print('横向平均值：\n', x.mean(axis=1), end='\n====\n')   # 横向平均值
+print('所有元素之和：\n', x.sum(), end='\n====\n')          # 所有元素之和
+print('横向最大值：\n', x.max(axis=1), end='\n====\n')    # 横向最大值
+print('横向最大值的下标：\n', x.argmax(axis=1), end='\n====\n')     # 横向最大值的下标
+print('对角线元素：\n', x.diagonal(), end='\n====\n')     # 对角线元素
+
+# 矩阵乘法
+x = np.matrix([[1, 2, 3], [4, 5, 6]])
+y = np.matrix([[1, 2], [3, 4], [5, 6]])
+print(x*y)
+
+
+# numpy矩阵运算
+# numpy.dot() 两个数组的点积，即队以ing元素对应相乘
+# 对于两个一维的数组，计算的是这两个数组对应下标元素的乘积和（数学上称为内积）
+# 对于二维数组，计算的是两个数组的矩阵乘积
+# 对于多维数组，它的通用计算公式如下，即结果数组中的每个元素都是：数组a的最后一维上的所有元素与数组b的倒数第二位上的所有元素的乘积和
+# numpy.dot(a, b, out=None)
+a = np.array([[1, 2], [3, 4]])
+b = np.array([[11, 12], [13, 14]])
+print(np.dot(a, b))
+# numpy.vdot() 返回两个向量的内积
+print(np.vdot(a, b))
+# numpy.linalg.inv() 计算逆矩阵
+x = np.array([[1, 2], [3, 4]])
+y = np.linalg.inv(x)
+print(x)
+print(y)
+print(np.dot(x, y))
+# numpy.linalg,solve() 求矩阵形式的线性方程的解
+a = np.array([[1, 1, 1], [0, 2, 5], [2, 5, -1]])    # 系数矩阵
+b = np.array([6, -4, 27])   # 系数矩阵
+x = np.linalg.solve(a, b)   # 求解
+print(x)
+print(np.dot(a, x))         # 验证
