@@ -1,0 +1,59 @@
+# 示例1，读入剪贴板数据，写入csv，转换为json、html、excel等格式
+import pandas as pd
+import numpy as np
+from pandas import Series, DataFrame
+
+# 粘贴板内容
+# ——*A——*B——*C
+# x*1——*4——*P
+# y*2——*5——*q
+# z*3——*6——*r
+
+# 从粘贴板读取数据
+df1 = pd.read_clipboard()
+# 把数据放入到粘贴板中，数据可以直接粘到excel文件中
+df1.to_clipboard()
+# 读写csv文件，可以取消index
+df1.to_csv('df1.csv')
+df1.to_csv('df1_noIndex.csv', index=False)
+# 转化为json格式
+df1.to_json('df1.json')
+# 转换为html格式
+df1.to_html('df1.html')
+# 转换为excel格式
+df1.to_excel('df1.xlsx')
+
+# 排序
+unsorted_df = pd.DataFrame(np.random.rand(10, 2), index=[1, 4, 6, 2, 3, 5, 9, 8, 0, 7], columns=['A', 'B'])
+print(unsorted_df, '\n')
+sorted_df = unsorted_df.sort_index(ascending=True)  # 按索引排序
+print(sorted_df, '\n')
+sorted_df = unsorted_df.sort_values(by='B')         # 按'B'列的值进行排序
+print(sorted_df, '\n')
+
+# 缺失值处理
+# 使用reindex()人为生成缺失值
+df = pd.DataFrame(np.random.rand(4, 3), index=['a', 'c', 'e', 'f'], columns=['one', 'two', 'three'])
+print('原始：\n', df, '\n')
+df = df.reindex(['a', 'b', 'c', 'd', 'e', 'f', 'g'])
+print('reindex后：\n', df, '\n')
+print(df['one'].isnull(), '\n')     # 缺失值标记
+print(df['one'].notnull(), '\n')
+
+# pandas提供了各种方法来清除缺失的值。fillna()函数可以通过几种方法用于非空数据“填充“NaN值
+print(df.fillna(0))
+# 向前填充：pad/fill
+# 向后填充：bfill/backfill
+print(df.fillna(method='pad'))
+print(df.fillna(method='backfill'))
+
+# 丢弃缺少的值
+# 如果只想排除缺少的值，则使用dropna函数和axis参数。默认情况下，axis=0.如果行内的任何值是NaN，那么整行被删除
+print(df.dropna(), '\n')
+print(df.dropna(axis=1), '\n')
+
+# 替换缺失值
+# 用一些具体的值取代一个通用的值或缺失值。用标量替换NaN和使用fillna()函数等效。
+df = pd.DataFrame({'one': [10, 20, 30, 40, 50, 2000], 'two': [1000, 20, 30, 40, 50, 60]})
+print(df, '\n')
+print(df.replace({1000: 10, 2000: 60}))
