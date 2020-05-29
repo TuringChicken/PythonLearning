@@ -1,0 +1,43 @@
+import matplotlib.pyplot as plt
+import numpy as np
+# 快速绘图
+# 接下来使用figure创建一个绘图对象，并且使它成为当前的绘图对象
+plt.figure(figsize=(8, 4))
+# 通过figsize参数可以指定绘图对象的宽度和高度，单位是英尺；dpi参数指定绘图对象的分辨率，即每英寸多少个像素，缺省值为80
+# 也可以不创建绘图对象直接调用接下来的plot函数直接绘图，matplotlib会自动创建一个绘图对象
+
+
+# 绘制sin(x)和cos(x**2)两条曲线，要求x取值范围0至10、x轴设为"Time(s)"、y轴设为"Volt"、图名称为”PyPlot First Example"，并显示图例。
+x = np.linspace(0, 10, 100)
+y = np.sin(x)
+z = np.cos(x**2)
+
+plt.plot(x, y, "r-", linewidth=2, label="$sin(x)$")
+plt.plot(x, z, "b--", label="$cos(x**2)$")
+plt.xlabel("Time(s)")
+plt.ylabel("Volt")
+plt.title("PyPlot First Example")
+plt.legend()
+plt.show()
+
+# pyplot的绘图区域
+# 可以用子图来将图样(plot)放在均匀的坐标网格中
+# plt.subplot(nrows, ncols, plot_number)
+# 用subplot函数的时候，需要指明网格的行列数量，以及你希望将图样放在哪一个网格区域中
+plt.subplot(2, 2, 1)    # 逗号可省略
+plt.xticks([]), plt.yticks([])
+plt.text(0.5, 0.5, 'subplot(2, 2, 1)', ha='center', va='center', size=24, alpha=.5)
+
+plt.subplot(2, 2, 2)
+plt.xticks([]), plt.yticks([])
+plt.text(0.5, 0.5, 'subplot(2, 2, 2)', ha='center', va='center', size=24, alpha=.5)
+
+plt.subplot(2, 2, 3)
+plt.xticks([]), plt.yticks([])
+plt.text(0.5, 0.5, 'subplot(2, 2, 3)', ha='center', va='center', size=24, alpha=.5)
+
+plt.subplot(2, 2, 4)
+plt.xticks([]), plt.yticks([])
+plt.text(0.5, 0.5, 'subplot(2, 2, 4)', ha='center', va='center', size=24, alpha=.5)
+
+plt.show()
