@@ -1,0 +1,41 @@
+import matplotlib.pyplot as plt
+import numpy as np
+# 最简单的折线图示例
+data = [1, 2, 3, 4, 5, 4, 2, 4, 6, 7]     # 随意创建的数据
+plt.plot(data)      # 引用matplotlib库中的pyplot模块绘图
+plt.show()
+
+# 绘制多条曲线、曲线颜色、线型、标记等参数设置
+yy = [1, 2, 3, 4, 5, 3, 1, 2, 7, 8]
+xx = [3, 5, 4, 1, 9, 3, 2, 5, 6, 3]
+zz = [2, 2, 4, 7, 4, 8, 2, 4, 5, 6]
+plt.plot(xx, color='r', linestyle='-', label="Data 1")
+plt.plot(yy, color='g', linestyle='--', label="Data 2")
+plt.plot(zz, color='b', linestyle=':', label="Data 3")
+plt.legend()
+plt.xlabel("X")
+plt.ylabel("Y")
+plt.title("折线图进阶", fontproperties="simhei")
+plt.show()
+
+# 折线图实战1
+month = list(range(1, 13))
+money = [5.2, 7.7, 5.8, 5.7, 7.3, 9.2, 18.7, 14.6, 20.5, 17.0, 9.8, 6.9]
+plt.plot(month, money, 'r-.v')
+plt.xlabel('month', fontsize=14)
+plt.ylabel('money', fontsize=14)
+plt.title("营业额变化", fontsize=18, fontproperties="simhei")
+plt.show()
+
+
+# 在matplotlib中使用函数matplotlib.pyplot.scatter绘制散点图
+N = 10
+x1 = np.random.rand(N)
+y1 = np.random.rand(N)
+x2 = np.random.rand(N)
+y2 = np.random.rand(N)
+# 两组数据分别用不同的点绘制
+plt.scatter(x1, y1, alpha=0.5, marker='^', label='triangle')
+plt.scatter(x2, y2, alpha=0.5, marker='o', label='circle')
+plt.legend(loc='best')  # 自动选择一个最好的地方放图例
+plt.show()
