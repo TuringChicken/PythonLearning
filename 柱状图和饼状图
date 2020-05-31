@@ -1,0 +1,55 @@
+# 使用Matplotlib提供的bar()函数来绘制柱状图
+# bar(x, height, width=0.8, *, align='center', **kwargs)
+import matplotlib.pyplot as plt
+num_list = [1.5, 0.6, 7.8, 6]
+name_list = ["Monday", "Tuesday", "Friday", "Sunday"]
+num_list2 = [1, 2, 3, 1]
+plt.bar(range(len(num_list)), num_list, color='g', tick_label=name_list, label="num_list")
+plt.bar(range(len(num_list2)), num_list2, color='c', tick_label=name_list, label="num_list2", bottom=num_list)
+plt.legend(loc="best")
+plt.show()
+
+# 横向条形图
+plt.barh(range(len(num_list)), num_list, color='g', tick_label=name_list, label="num_list")
+plt.show()
+
+# 并列柱状图
+x = list(range(len(num_list)))
+total_width = 0.8
+n = 2
+width = total_width/n
+plt.bar(x, num_list, width=width, label='num_list')
+for i in range(len(x)):
+    x[i] = x[i]+width
+plt.bar(x, num_list2, width=width, label='num_list2', tick_label=name_list)
+plt.legend(loc="best")
+plt.show()
+
+
+# 饼状图
+# 绘图方法pie()
+# pie(x, explode=None, labels=None, colors=None, autopct=None, pctdistance=0.6, shadow=False, labeldistance=1.1,
+#       startangle=None, radius=None, counterclock=True, wedgeprops=None, textprops=None, center=(0, 0), frame=False,
+#       rotatelabels=False, hold=None, data=None)
+plt.rcParams['font.sans-serif'] = ['SimHei']    # 用来正常显示中文标签
+labels = ['A', 'B', 'C', 'D']
+sizes = [10, 20, 30, 40]
+plt.pie(sizes, labels=labels)
+plt.title('简单饼状图实战')
+plt.show()
+# explode参数，一块饼图到中心的距离，默认为0
+explode = (0, 0.1, 0, 0)
+plt.pie(sizes, labels=labels, explode=explode)
+plt.show()
+# colors，数组，可选参数，默认为：None，用来标注每块饼图的matplotlib颜色参数序列
+color = ['r', 'g', 'b', 'c']
+plt.pie(sizes, labels=labels, explode=explode, colors=color)
+plt.show()
+# autopct：控制饼图内百分比设置，可以使用format字符串或者format function
+plt.pie(sizes, labels=labels, explode=explode, colors=color, autopct='%1.2f%%')
+plt.show()
+# x：每一块饼图的比例，为必填项，如果sum(x)>1,会将多出的部分进行均分。((1/sum(x))*各部分的比例)
+sizes = [0.1, 0.2, 0.3, 0.7]
+plt.pie(sizes, labels=labels, explode=explode, colors=color, autopct='%1.2f%%')
+plt.legend(loc="best")
+plt.show()
