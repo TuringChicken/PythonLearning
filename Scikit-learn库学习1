@@ -1,0 +1,75 @@
+from sklearn.neighbors import KNeighborsClassifier
+from sklearn import datasets
+from sklearn.model_selection import train_test_split
+from sklearn.tree import DecisionTreeClassifier
+from sklearn.metrics import accuracy_score
+import matplotlib.pyplot as plt
+import numpy as np
+from sklearn import linear_model
+
+# Scikit-learn库分类算法
+# knn分类
+# 给定一组数据X = [[0], [1], [2], [3], [4], [5]],对应的标签为y = [0, 0, 0, 1, 1, 1],现使用Scikit—learn库的k近邻分类器对未知数据
+# [0.5, 1.6, 2.5, 2.6, 3.8, 10]进行分类，输出其对应的标签。
+# 1、导入scikit-learn库的k近邻分类器模块
+# 2、准备训练数据和对应的标签
+# 3、获取分类器
+# 4、将训练数据和标签送入分类器进行学习
+# 5、对未知数据进行分类
+
+x = [[0], [1], [2], [3], [4], [5]]
+y = [0, 0, 0, 1, 1, 1]
+neigh = KNeighborsClassifier(n_neighbors=1)
+neigh.fit(x, y)
+print(neigh.predict([[0.5]]))
+print(neigh.predict([[1.6]]))
+print(neigh.predict([[2.5]]))
+print(neigh.predict([[2.6]]))
+print(neigh.predict([[3.8]]))
+print(neigh.predict([[10]]))
+
+
+# 决策树
+# 鸢尾花数据集
+# 这里，scikit-learn已经将花的原名进行了转换，其中0，1，2分别代表Iris Setosa, Iris Versicolour和Iris Virginica
+# 鸢尾花数据集示例
+iris = datasets.load_iris()
+iris_feature = iris.data
+iris_target = iris.target
+print(iris_target)
+
+# scikit-learn为我们提供了训练集和数据集的方法
+# 先将训练数据集打乱
+feature_train, feature_test, target_train, target_test = train_test_split(iris_feature, iris_target, test_size=0.3,
+                                                                          random_state=42)
+print(target_train)
+# 导入决策树分类器，然后使用fit方法和predict方法对模型进行训练和预测
+dt_model = DecisionTreeClassifier()
+dt_model.fit(feature_train, target_train)
+predict_results = dt_model.predict(feature_test)
+print(predict_results)
+print(target_test)
+# 可通过scikit-learn中提供的评估计算方法查看预测结果的准确度
+print(accuracy_score(predict_results, target_test))
+
+
+# Scikit-learn库回归算法
+# 线性回归，非线性回归
+# Sklearn中的线性回归：房价与房屋尺寸线性拟合
+datasets_X = [78, 80, 83, 85, 90, 94, 93, 92, 100, 107, 110, 120, 130]  # 房屋尺寸
+# 房屋价格
+datasets_Y = [500000, 530000, 550000, 576498, 582934, 603945, 602948, 592830, 703495, 724840, 892378, 920349, 1000000]
+datasets_X = np.array(datasets_X).reshape([-1, 1])
+datasets_Y = np.array(datasets_Y)
+# 以数据datasets_X的最大值和最小值为范围，建立等差数列， 方便后续画图
+minX = min(datasets_X)
+maxX = max(datasets_X)
+X = np.arange(minX, maxX).reshape([-1, 1])
+linear = linear_model.LinearRegression()
+linear.fit(datasets_X, datasets_Y)
+plt.scatter(datasets_X, datasets_Y, color='red', label='origin data')
+plt.plot(X, linear.predict(X), color='blue', label='linear regression prediction')
+plt.legend()
+plt.xlabel('Area')
+plt.ylabel('Price')
+plt.show()
